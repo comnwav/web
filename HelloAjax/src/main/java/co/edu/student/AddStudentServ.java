@@ -14,7 +14,7 @@ public class AddStudentServ extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		
+		// 최규완 킹왕짱
 		
 		req.setCharacterEncoding("UTF-8");
 
