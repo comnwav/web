@@ -17,8 +17,12 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-//		config.getInitParameter("charset");
+		charset = config.getInitParameter("charset");
+		
+		// HashMap<String keys, String values> or HashMap<String keys, integer values>
+		// HashMap은 key/value 조합으로 key를 index로 이용한다.
 		list = new HashMap<String, Control>();
+		
 		list.put("/memberInsert.do", new MemberInsertControl());
 		list.put("/memberUpdate.do", new MemberUpdateControl());
 		list.put("/memberList.do", new MemberListControl());
@@ -26,7 +30,7 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		req.setCharacterEncoding(charset);
+		req.setCharacterEncoding(charset);
 		String url = req.getRequestURI(); // /P20220503/memberInsert.do
 		String context = req.getContextPath();
 		String path = url.substring(context.length()); //
