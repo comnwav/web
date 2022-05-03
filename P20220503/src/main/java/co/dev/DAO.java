@@ -9,10 +9,10 @@ import java.sql.Statement;
 
 public class DAO {
 
-	Connection conn;
+	public Connection conn;
 	Statement stmt;
-	ResultSet rs;
-	PreparedStatement psmt;
+	public ResultSet rs;
+	public PreparedStatement psmt;
 
 	public Connection getConnect() {
 

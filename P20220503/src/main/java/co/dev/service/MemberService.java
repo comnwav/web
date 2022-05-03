@@ -1,5 +1,18 @@
 package co.dev.service;
 
-public class MemberService {
+import java.util.List;
 
+import co.dev.dao.MemberDAO;
+import co.dev.vo.MemberVO;
+
+public class MemberService {
+	MemberDAO dao = new MemberDAO(); // db CRUD
+	
+	public void memberInsert(MemberVO member) {
+		dao.insertMember(member);
+	}
+	
+	public List<MemberVO> memberList() {
+		return dao.listMember();
+	}
 }
