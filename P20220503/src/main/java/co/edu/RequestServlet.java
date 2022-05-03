@@ -36,7 +36,7 @@ public class RequestServlet extends HttpServlet {
 		out.print("Request Scheme: " + request.getScheme() + "<br>");
 		out.print("server Name: " + request.getServerName()+ "<br>");
 		out.print("Server Address: " + request.getLocalAddr() + "<br>");
-		out.print("Client Address: " + request.getRemoteAddr() + "<br>"); 
+		out.print("Client Address: " + request.getRemoteAddr() + "<br>");
 		out.print("Client Port: " + request.getRemotePort() + "<br>");
 		
 		out.print("<h3>요청 프로토콜</h3>");
