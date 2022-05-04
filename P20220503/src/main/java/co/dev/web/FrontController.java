@@ -17,12 +17,10 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		System.out.println("hello");
-		System.out.println(config);
-		System.out.println("bye");
+		
+		System.out.println("start of init");
+		
 		charset = config.getInitParameter("charset");
-		
-		
 		// HashMap<String keys, String values> or HashMap<String keys, integer values>
 		// HashMap은 key/value 조합으로 key를 index로 이용한다.
 		list = new HashMap<String, Control>();
@@ -32,7 +30,7 @@ public class FrontController extends HttpServlet {
 		list.put("/memberList.do", new MemberListControl());
 		list.put("/memberSearch.do", new MemberSearchControl());
 		
-		System.out.println("Good Bye");
+		System.out.println("end of init");
 	}
 
 	@Override
@@ -53,14 +51,11 @@ public class FrontController extends HttpServlet {
 		System.out.println(path);
 
 		Control exeCon = list.get(path);
-		System.out.println(exeCon);
-		System.out.println(req);
-		System.out.println(resp);
 		exeCon.execute(req, resp);
 	}
 	
 	@Override
 	public void destroy() {
-		System.out.println("Good-Good-Bye!!");
+		System.out.println("Servlet has been destroyed");
 	}
 }

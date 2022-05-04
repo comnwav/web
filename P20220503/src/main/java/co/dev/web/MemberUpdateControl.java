@@ -24,7 +24,7 @@ public class MemberUpdateControl implements Control {
 			request.getRequestDispatcher("memberView/memberUpdate.jsp").forward(request, response);
 			return;
 		}
-
+		
 		MemberVO member = new MemberVO();
 		member.setId(id);
 		member.setName(name);
