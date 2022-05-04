@@ -33,5 +33,4 @@ public class MemberInsertControl implements Control {
 		
 		request.getRequestDispatcher("memberResult/memberInsertOutput.jsp").forward(request, response);
 	}
-
 }

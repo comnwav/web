@@ -17,8 +17,9 @@
     <input type="text" name="name" id="name"><br>
     <label for="email">메일</label>
     <input type="email" name="email" id="email"><br>
-    <input type="submit" value="추가">
-
+    <input type="submit" value="추가"><br>
+    
+    <jsp:include page="../memberResult/home.jsp"></jsp:include>
 </form>
 </body>
 </html>

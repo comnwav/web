@@ -14,6 +14,5 @@
 	<h3><%=(String) request.getAttribute("name")%>가입이 완료되었습니다.</h3>
 	<h3>${name}님 가입이 완료되었습니다.</h3>
 	<jsp:include page="home.jsp"></jsp:include>
-	<%@include file="home.jsp"%>
 </body>
 </html>

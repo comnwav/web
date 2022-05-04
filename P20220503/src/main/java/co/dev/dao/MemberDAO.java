@@ -8,6 +8,56 @@ import co.dev.DAO;
 import co.dev.vo.MemberVO;
 
 public class MemberDAO extends DAO {
+	
+	public void updateMember(MemberVO vo) {
+		conn = getConnect();
+		String sql = "update name= ?, pwd = ?, email = ? where id = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getName());
+			psmt.setString(2, vo.getPwd());
+			psmt.setString(3, vo.getEmail());
+			psmt.setString(4, vo.getId());
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 수정");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+	}
+	
+	public void deleteMember(MemberVO vo) {
+		
+	}
+	
+	public MemberVO searchMember(String id) {
+		conn = getConnect();
+		String sql = "select * from member where id = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setPwd(rs.getString("pwd"));
+				return vo;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
+	}
+	
 	public void insertMember(MemberVO member) {
 		conn = getConnect();
 		String sql = "insert into member(id, name, pwd, email) values(?,?,?,?)";

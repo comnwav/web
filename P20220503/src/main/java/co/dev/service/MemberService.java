@@ -15,4 +15,8 @@ public class MemberService {
 	public List<MemberVO> memberList() {
 		return dao.listMember();
 	}
+	
+	public MemberVO memberSearch(String id) {
+		return dao.searchMember(id);
+	}
 }
