@@ -12,7 +12,7 @@
     <form action="${pageContext.servletContext.contextPath}/memberSearch.do" method="get">
         <label for="id">조회아이디</label>
         <input type="text" name="id" id="id"><br>
-        <input type="hidden" name="job" value="delete">
+        <input type="hidden" name="job" value="search">
         <input type="submit" value="Search">
     </form>
     

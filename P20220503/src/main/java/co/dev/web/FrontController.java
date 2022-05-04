@@ -17,7 +17,11 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
+		System.out.println("hello");
+		System.out.println(config);
+		System.out.println("bye");
 		charset = config.getInitParameter("charset");
+		
 		
 		// HashMap<String keys, String values> or HashMap<String keys, integer values>
 		// HashMap은 key/value 조합으로 key를 index로 이용한다.
@@ -27,16 +31,36 @@ public class FrontController extends HttpServlet {
 		list.put("/memberUpdate.do", new MemberUpdateControl());
 		list.put("/memberList.do", new MemberListControl());
 		list.put("/memberSearch.do", new MemberSearchControl());
+		
+		System.out.println("Good Bye");
 	}
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding(charset);
-		String url = req.getRequestURI(); // /P20220503/memberInsert.do
+		
+		// "Uniform Resource Identifier"의 약자로서, 
+		// 인터넷에 존재하는 각종 정보들의 유일한 이름이나 위치를 표시하는 식별자이다
+		// 통합지원식별자
+		
+		String uri = req.getRequestURI();
 		String context = req.getContextPath();
-		String path = url.substring(context.length()); //
+		String path = uri.substring(context.length());
+		
+		System.out.println(list);
+		System.out.println(uri);
+		System.out.println(context);
+		System.out.println(path);
 
 		Control exeCon = list.get(path);
+		System.out.println(exeCon);
+		System.out.println(req);
+		System.out.println(resp);
 		exeCon.execute(req, resp);
+	}
+	
+	@Override
+	public void destroy() {
+		System.out.println("Good-Good-Bye!!");
 	}
 }

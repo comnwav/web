@@ -11,7 +11,7 @@ public class MemberDAO extends DAO {
 	
 	public void updateMember(MemberVO vo) {
 		conn = getConnect();
-		String sql = "update name= ?, pwd = ?, email = ? where id = ?";
+		String sql = "update member set name= ?, pwd = ?, email = ? where id = ?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -29,8 +29,21 @@ public class MemberDAO extends DAO {
 		}
 	}
 	
-	public void deleteMember(MemberVO vo) {
+	public void deleteMember(String id) {
+		conn = getConnect();
+		String sql = "delete from member where id = ?";
 		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제");	
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
 	}
 	
 	public MemberVO searchMember(String id) {

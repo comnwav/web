@@ -19,4 +19,12 @@ public class MemberService {
 	public MemberVO memberSearch(String id) {
 		return dao.searchMember(id);
 	}
+	
+	public void memberUpdate(MemberVO member) {
+		dao.updateMember(member);
+	}
+	
+	public void memberDelete(String id) {
+		dao.deleteMember(id);
+	}
 }
