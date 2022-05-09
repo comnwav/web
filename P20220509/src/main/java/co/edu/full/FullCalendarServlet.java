@@ -54,8 +54,6 @@ public class FullCalendarServlet extends HttpServlet {
 			
 			dao.insertSchedule(vo);
 			
-			System.out.println("hello");
-			
 		} else if (job.equals("delete")) {
 			String title = request.getParameter("title");
 			dao.deleteSchedule(title);

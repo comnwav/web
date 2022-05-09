@@ -41,18 +41,17 @@ public class StudentGetServlet extends HttpServlet {
 						+ "	<title>form.jsp</title>\r\n"
 						+ "</head>");
 				response.getWriter().println("<form name='frm' action='StudentGetServlet' method='post'>");
-				response.getWriter().println("<h3>번호: " + stud.getStudentNo() + "</h3>");
-				response.getWriter().println("<h3>이름: " + stud.getStudentName() + "</h3>");
+				response.getWriter().println("<h3>학생번호: " + stud.getStudentNo() + "</h3>");
+				response.getWriter().println("<h3>학생이름: " + stud.getStudentName() + "</h3>");
 				response.getWriter().println("<input type=\"hidden\" name=\"cmd\" value=\"mod\">");
 				response.getWriter().println("<input type='hidden' name='user_id' value='"+stud.getStudentNo()+"'>");
 				response.getWriter().println("<input type='hidden' name='user_name' value='"+stud.getStudentName()+"'>");
-				response.getWriter().println("<h3>영어:<input type='number' name='eng_score' value=" + stud.getEngScore() + ">점</h3>");
-				response.getWriter().println("<h3>국어:<input type='number' name='kor_score' value=" + stud.getKorScore() + ">점</h3>");
+				response.getWriter().println("<h3>eng: <input type='number' name='eng_score' value=" + stud.getEngScore() + "></h3>");
+				response.getWriter().println("<h3>kor: <input type='number' name='kor_score' value=" + stud.getKorScore() + "></h3>");
 				response.getWriter().println("<input type='submit' value='수정' id='modBtn'>");
 				response.getWriter().println("</form>");
 			} else {
 				response.setContentType("text/html;charset=utf-8");
-				response.getWriter().println("조회된 데이터가 엄슴돠 2초뒤 돌아감돠");
 //				response.getWriter().println("<script>"
 //						+ "setTimeout(()=>{"
 //						+ "window.location.href = './form.jsp'},1000)"
@@ -61,7 +60,7 @@ public class StudentGetServlet extends HttpServlet {
 			}
 
 
-		//if cmd = null => json 반환
+		//if cmd = null => json 諛섑솚
 		} else {
 			response.setContentType("text/json;charset=utf-8");
 
@@ -100,7 +99,7 @@ public class StudentGetServlet extends HttpServlet {
 			dao.addStudent(stud);
 
 			response.setContentType("text/html;charset=utf-8");
-			response.getWriter().println("입력성공! 최큐완킹왕창");
+			response.getWriter().println("�엯�젰�꽦怨�! 理쒗걧�셿�궧�솗李�");
 //			response.getWriter().println("<script>"
 //					+ "setTimeout(()=>{"
 //					+ "window.location.href = './form.jsp'},1000)"
@@ -112,7 +111,7 @@ public class StudentGetServlet extends HttpServlet {
 
 			StudentDAO dao = new StudentDAO();
 			dao.removeStudent(id);
-			response.getWriter().println("삭제성공! 최큐완킹왕창");
+			response.getWriter().println("�궘�젣�꽦怨�! 理쒗걧�셿�궧�솗李�");
 //			response.getWriter().println("<script>"
 //					+ "setTimeout(()=>{"
 //					+ "window.location.href = './form.jsp'},1000)"
@@ -135,7 +134,7 @@ public class StudentGetServlet extends HttpServlet {
 			StudentDAO dao = new StudentDAO();
 			dao.modifyStudent(stud);
 			
-			response.getWriter().println("수정성공! 최큐완킹왕창");
+			response.getWriter().println("�닔�젙�꽦怨�! 理쒗걧�셿�궧�솗李�");
 			response.sendRedirect("studentList.jsp");
 		}
 
