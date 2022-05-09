@@ -9,34 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class addPersonServlet
- */
 @WebServlet("/addPersonServlet")
 public class addPersonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * Default constructor. 
-     */
     public addPersonServlet() {
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		doGet(request, response);
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -47,15 +31,13 @@ public class addPersonServlet extends HttpServlet {
 		String score = request.getParameter("uscore");
 		String age = request.getParameter("uage");
 		
-		System.out.println("¾ÆÀÌµð: " + id);
-		System.out.println("ÀÌ¸§: " + name);
-		System.out.println("Á¡¼ö: " + score);
-		System.out.println("³ªÀÌ: " + age);
-		
-		//db insert/update/delete/select
+		System.out.println("ï¿½ï¿½ï¿½Ìµï¿½: " + id);
+		System.out.println("ï¿½Ì¸ï¿½: " + name);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½: " + score);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½: " + age);
 		
 		PrintWriter out = response.getWriter(); // InputStream, OutputStream, ReadStream
-		out.println("<h3>ÀÀ´ä°á°ú</h3>");
+		out.println("<h3>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</h3>");
 		out.println("<h4>ID:" + id + "</h4>");
 		out.println("<h4>Name:" + name + "</h4>");
 		out.println("<h4>Score:" + score + "</h4>");

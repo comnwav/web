@@ -17,5 +17,7 @@
 	<a href="memberView/memberDelete.jsp">회원삭제검색</a>
 	<br>
 	<a href="memberList.do">모든회원정보</a>
+	<br>
+	<a href="ajax.html">Ajax 호출</a>
 </body>
 </html>

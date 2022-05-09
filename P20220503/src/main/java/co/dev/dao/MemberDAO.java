@@ -73,14 +73,17 @@ public class MemberDAO extends DAO {
 	
 	public void insertMember(MemberVO member) {
 		conn = getConnect();
-		String sql = "insert into member(id, name, pwd, email) values(?,?,?,?)";
+		String sql = "insert into member(id, name, pwd, email, profile) values(?,?,?,?,?)";
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, member.getId());
 			psmt.setString(2, member.getName());
 			psmt.setString(3, member.getPwd());
 			psmt.setString(4, member.getEmail());
+			psmt.setString(5, member.getProfile());
+			
 			int r = psmt.executeUpdate();
+			
 			System.out.println(r + "건 입력");	
 			
 		} catch (SQLException e) {
@@ -106,6 +109,7 @@ public class MemberDAO extends DAO {
 				vo.setEmail(rs.getString("email"));
 				vo.setName(rs.getString("name"));
 				vo.setPwd(rs.getString("pwd"));
+				vo.setProfile(rs.getString("profile"));
 				list.add(vo);
 			}
 			

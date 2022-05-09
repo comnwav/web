@@ -31,6 +31,10 @@ public class FrontController extends HttpServlet {
 		list.put("/memberSearch.do", new MemberSearchControl());
 		
 		System.out.println("end of init");
+		
+		// json 관련 등록
+		list.put("/memberListJson.do", new MemberListJson());
+		list.put("/memberInsertJson.do", new MemberInsertJson());
 	}
 
 	@Override

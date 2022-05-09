@@ -45,9 +45,6 @@ public class MemberSearchControl implements Control {
 		if(job.equals("search")) {
 			path = "memberResult/memberSearchOutput.jsp";
 		}
-		
 		request.getRequestDispatcher(path).forward(request, response);
-		
 	}
-
 }

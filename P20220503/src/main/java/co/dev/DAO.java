@@ -22,7 +22,6 @@ public class DAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println();
 		return conn;
 	}
 

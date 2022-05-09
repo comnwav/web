@@ -24,6 +24,7 @@
 						<th>이름</th>
 						<th>이메일</th>
 						<th>비밀번호</th>
+						<th>프로필사진</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,6 +34,22 @@
 					<td>${member.name}</td>
 					<td>${member.email}</td>
 					<td>${member.pwd}</td>
+					<td>
+					<c:choose>
+					<c:when test="${!empty member.profile}">
+					<img src="${pageContext.servletContext.contextPath}/upload/${member.profile}" width="50" height="50"></img>
+					</c:when>
+					<c:otherwise>
+					
+					</c:otherwise>
+					</c:choose>
+					</td>
+					
+					<td>
+					<c:if test="${!empty member.profile}">
+					<img src="${pageContext.servletContext.contextPath}/upload/${member.profile}" width="50" height="50"></img>
+					</c:if>
+					</td>
 					</tr>
 					</c:forEach>
 				</tbody>
