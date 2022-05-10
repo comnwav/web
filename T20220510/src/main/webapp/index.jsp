@@ -15,7 +15,7 @@
     <a href="view/modify.jsp">도서수정검색</a><br>
     <a href="view/remove.jsp">도서삭제검색</a><br>
     <a href="listBook.do">도서목록</a><br>
-s
+
 </body>
 
 </html>
