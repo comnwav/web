@@ -44,9 +44,11 @@ public class ToDoServlet extends HttpServlet {
 
 		if (atr.equals("add")) {
 			String cont = request.getParameter("cont");
-			String checked = request.getParameter("checked");
+			String check = request.getParameter("checked");
 
-			ToDo td = new ToDo(cont, checked);
+			ToDo td = new ToDo();
+			td.setCont(cont);
+			td.setCheck(Integer.parseInt(check));
 			dao.addEvent(td);
 
 		} else if (atr.equals("delete")) {
