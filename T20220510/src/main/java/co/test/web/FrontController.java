@@ -27,7 +27,7 @@ public class FrontController extends HttpServlet {
 		enc = config.getInitParameter("encoding");
 
 		map = new HashMap<String, Controller>();
-
+		
 		map.put("/addBook.do", new AddBookControl());
 		map.put("/listBook.do", new ListBookControl());
 		map.put("/searchBook.do", new SearchBookControl());

@@ -7,7 +7,7 @@
 <title>메인화면입니다.</title>
 </head>
 <body>
-	<h3>Welcome!</h3>
+<!-- 	<h3>Welcome!</h3>
 	<a href="memberView/memberInsert.jsp">회원정보생성</a>
 	<br>
 	<a href="memberView/memberSearch.jsp">회원정보검색</a>
@@ -18,6 +18,9 @@
 	<br>
 	<a href="memberList.do">모든회원정보</a>
 	<br>
-	<a href="ajax.html">Ajax 호출</a>
+	<a href="ajax.html">Ajax 호출</a> -->
+	
+	<jsp:forward page="myapp.homepage.tiles"></jsp:forward>
+	
 </body>
 </html>
