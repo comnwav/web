@@ -12,7 +12,7 @@ public class ToDoDAO {
 
 	Connection conn = null;
 	PreparedStatement psmt = null;
-	ResultSet rs = null;
+	ResultSet rs  = null;
 
 	public void getConnect() {
 		try {
@@ -50,47 +50,48 @@ public class ToDoDAO {
 	}
 
 	// 리스트.
-	public List<ToDo> getList() {
-		String sql = "select * from todo_list";
+//	public List<ToDo> getList() {
+//		String sql = "select * from todo_list";
+//
+//		getConnect();
+//
+//		List<ToDo> list = new ArrayList<>();
+//		
+//		try {
+//			psmt = conn.prepareStatement(sql);
+//			rs = psmt.executeQuery();
+//			ToDo td = new ToDo();
+//			while (rs.next()) {
+//				td.setCode(rs.getString("todo_code"));
+//				td.setCont(rs.getString("todo_cont"));
+//				td.setCheck(rs.getInt("todo_check"));
+//				list.add(td);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			disConnect();
+//		}
+//		return list;
+//	}
 
-		getConnect();
-
-		List<ToDo> list = new ArrayList<>();
+	public void addEvent(String val) {
 		
-		try {
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			ToDo td = new ToDo();
-			while (rs.next()) {
-				td.setCode(rs.getString("todo_code"));
-				td.setCont(rs.getString("todo_cont"));
-				td.setCheck(rs.getInt("todo_check"));
-				list.add(td);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			disConnect();
-		}
-		return list;
-	}
-
-	public void addEvent(ToDo td) {
 		getConnect();
 		
 		String sql = "INSERT INTO todo_list (\n"+
 				"    todo_code,\n"+
 				"    todo_cont,\n"+
-				"    todo_check\n"+
+//				"    todo_check\n"+
 				") VALUES (\n"+
-				"    ? || code_seq.NEXTVAL,\n"+
+				"    'td' || code_seq.NEXTVAL,\n"+
 				"    ?,\n"+
-				"    ?\n"+
+//				"    ?\n"+
 				")";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, td.getCont());
-			psmt.setInt(2, td.getCheck());
+			psmt.setString(1, val);
+//			psmt.setInt(2, td.getCheck());
 			int r = psmt.executeUpdate();
 			
 			System.out.println(r + "건 입력");
@@ -101,14 +102,6 @@ public class ToDoDAO {
 			disConnect();
 		}
 		
-	}
-
-	public void delTodo(String val) {
-
-	}
-
-	public void checkTodo(String val) {
-
 	}
 
 }
