@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>자바스크립트 - 영화데이터베이스 API</title>
+
+</head>
+<body>
+    <div class="container">
+
+    </div>
+    <script>
+        const key = "6446bae76aaffa9af6d4c00b2299f016";
+        const base_url = "https://image.tmdb.org/t/p/w500";
+        
+        const container = document.querySelector(".container");
+        const body = document.querySelector("body");
+        
+        function fetchMovie(page){
+            const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=gattaca&language=ko-KR`;
+            fetch(url)
+            .then(res => res.json())
+            .then(function(res){
+
+                console.log(res);
+                console.log(res.results[0]);
+
+                let movie = res.results[0];
+                
+                let poster = `<img src="${base_url + movie.poster_path}" width="300">`;
+                
+                let h1 = document.createElement('h1');
+                console.log(h1);
+                let title = movie.original_title;
+
+                console.log(title);
+
+                h1.innerHTML = title;
+                
+                body.innerHTML = poster;
+                body.appendChild(h1);
+                
+            })
+            .catch(error => console.log(error));
+        };
+        
+        window.addEventListener('onLoad', fetchMovie());
+        
+        //더보기 버튼 클릭 리스너    
+        // const moreButton = document.querySelector(".more");
+        // moreButton.addEventListener('click', function(){
+        //     if(page < 3){
+        //         page += 1;
+        //         fetchMovie(page);
+        //     } else {
+        //         this.disabled = true;
+        //     }
+            
+        //     console.log(page);
+        // });
+    </script>
+
+    
+</body>
+</html>
