@@ -1,55 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>test</title>
-
 </head>
+
+<style>
+    .f1 {
+        float: left;
+    }
+
+    .f2 {
+        float: left;
+    }
+
+    .f3 {
+        display: inline-block
+    }
+</style>
+
 <body>
-    <div class="container">
-
+    <div class="f1">
+        <div class="poster"></div>
+        <div class="reserve"></div>
     </div>
+
+    <div class="f2">
+        <h1 class="title"></h1>
+        <h3 class="info"></h3>
+    </div>
+
+    <div class="f3">
+        <p></p>
+    </div>
+
+    <div class="f4">
+        <div class="youtube"></div>
+    </div>
+
+    <div class="f5">
+        <form action=""></form>
+        <input type="text" name="cont" id="">
+        <input type="button" value="입력">
+    </div>
+
     <script>
-        const key = "6446bae76aaffa9af6d4c00b2299f016";
-        const base_url = "https://image.tmdb.org/t/p/w500";
-        
-        const container = document.querySelector(".container");
-        const body = document.querySelector("body");
-        
-        function fetchMovie(page){
-            const url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=gattaca&language=ko-KR`;
+        let key = "6446bae76aaffa9af6d4c00b2299f016";
+
+        let srcPara = new URL(location.href).searchParams;
+        let name = srcPara.get('title');
+
+        // div class 요소
+        let f1 = document.querySelector('.f1');
+        let f2 = document.querySelector('.f2');
+        let f3 = document.querySelector('.f3');
+        let f4 = document.querySelector('.f4');
+        let f5 = document.querySelector('.f5');
+
+        function infoPage() {
+            fetchMovie();
+            fetchVideo();
+            fetchComment();
+        }
+
+        function fetchMovie() {
+            // let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${name}&language=ko-KR`;
+            let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=가타카&language=ko-KR`;
+            let base_url = "https://image.tmdb.org/t/p/w500";
+
             fetch(url)
-            .then(res => res.json())
-            .then(function(res){
+                .then(res => res.json())
+                .then(res => {
 
-                console.log(res);
-                console.log(res.results[0]);
+                    console.log(res.results[0]);
 
-                let movie = res.results[0];
-                
-                let poster = `<img src="${base_url + movie.poster_path}" width="300">`;
-                
-                let h1 = document.createElement('h1');
-                console.log(h1);
-                let title = movie.original_title;
+                    // query 결과확인
+                    let movie = res.results[0];
 
-                console.log(title);
+                    // result 에서 가져올 항목
+                    let poster = base_url + movie.poster_path;
+                    let overview = movie.overview;
+                    let title = movie.original_title;
+                    let relDate = movie.release_date;
 
-                h1.innerHTML = title;
-                
-                body.innerHTML = poster;
-                body.appendChild(h1);
-                
-            })
-            .catch(error => console.log(error));
+                    // f1-1 poster
+                    let imgTag = document.createElement('img');
+                    imgTag.setAttribute('width', '300');
+                    imgTag.src = poster;
+
+                    console.log(imgTag);
+
+                    f1.firstElementChild.appendChild(imgTag);
+
+                    // f1-2 reserve button
+                    let rsTag = document.createElement('a');
+                    rsTag.innerHTML = '예매하기';
+                    rsTag.href = `${title}어디론가갑니다`
+                    f1.lastElementChild.appendChild(rsTag);
+
+                    // f2 info
+                    let titleTag = document.querySelector('.title');
+                    titleTag.innerHTML = title;
+                    f2.appendChild(titleTag);
+
+                    let infoTag = document.querySelector('.info');
+
+                    // f3 overview
+                    let ovTag = document.querySelector('.f3');
+                    ovTag.firstElementChild.innerHTML = overview;
+                })
+                .catch(error => console.log(error));
         };
-        
-        window.addEventListener('onLoad', fetchMovie());
-        
-    </script>
+        function fetchVideo() {
+            // let url = `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${key}&language=en-EN`;
+            let url = `https://api.themoviedb.org/3/movie/782/videos?api_key=${key}&language=en-EN`;
+            let youtube = document.querySelector('.youtube');
 
-    
+            fetch(url)
+                .then(res => res.json())
+                .then(res => {
+                    let ary = res.results;
+                    console.log(ary);
+
+                    ary.forEach(element => {
+                        let vid = document.createElement('iframe');
+                        let key = element.key;
+                        vid.src = `https://www.youtube.com/embed/${key}?autoplay=0`;
+                        youtube.appendChild(vid);
+                    });
+                })
+        }
+        function fetchComment() {
+            let url = `/CmInsertController`;
+            let data = {
+                id: test,
+                cont: test,
+                stars: test
+            }
+            let fchPara = {
+                headers: {
+                    "content-type":"application/json; charset=utf-8"
+                },
+                body:data,
+                method:"POST"
+            };
+
+            fecth(url, fchPara)
+            .then(res => {
+                console.log(res);
+            })
+        }
+        window.addEventListener('onLoad', infoPage());
+    </script>
 </body>
 </html>
