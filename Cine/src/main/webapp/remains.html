@@ -1,0 +1,20 @@
+// get 방식으로 전송
+let url = `CmController`;
+
+let cont = document.querySelector('.cont').value;
+console.log(cont);
+let contBt = document.querySelector('.contBt');
+
+let data = {
+    id: 'test',
+    cont: cont,
+    stars: 'test'
+};
+
+contBt.addEventListener('click', e => {
+    fetch(url + '?' + new URLSearchParams(data))
+    .then(res => res.json())
+    .then(res => {
+        console.log(res);
+    })
+});

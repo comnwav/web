@@ -6,6 +6,7 @@ public class MemberVO {
 	String cmCode;
 	String cmCont;
 	int cmStars;
+	String cmDate;
 
 	public String getId() {
 		return id;
@@ -37,6 +38,14 @@ public class MemberVO {
 
 	public void setCmStars(int cmStars) {
 		this.cmStars = cmStars;
+	}
+	
+	public String getCmDate() {
+		return cmDate;
+	}
+
+	public void setCmDate(String cmDate) {
+		this.cmDate = cmDate;
 	}
 
 	public MemberVO() {

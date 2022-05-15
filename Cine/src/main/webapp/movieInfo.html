@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
@@ -8,19 +8,7 @@
     <title>test</title>
 </head>
 
-<style>
-    .f1 {
-        float: left;
-    }
-
-    .f2 {
-        float: left;
-    }
-
-    .f3 {
-        display: inline-block
-    }
-</style>
+<link rel="stylesheet" href="movieInfo.css">
 
 <body>
     <div class="f1">
@@ -42,9 +30,28 @@
     </div>
 
     <div class="f5">
-        <form action=""></form>
-        <input type="text" name="cont" id="">
-        <input type="button" value="입력">
+        <table id="list_table">
+        </table>
+        <a onclick="prevPage()" href='#' id="btn_prev">Prev</a>
+        <a onclick="nextPage()" href='#' id="btn_next">Next</a>
+        <span id="page"></span>
+    </div>
+
+    <div class="f6">
+        <input type="text" name="" id="area" placeholder="이 영화 어떠셨나요?">
+        <div class="star-rating">
+            <input type="radio" id="5-stars" name="rating" value="5">
+            <label for="5-stars" class="star">&#9733;</label>
+            <input type="radio" id="4-stars" name="rating" value="4">
+            <label for="4-stars" class="star">&#9733;</label>
+            <input type="radio" id="3-stars" name="rating" value="3">
+            <label for="3-stars" class="star">&#9733;</label>
+            <input type="radio" id="2-stars" name="rating" value="2">
+            <label for="2-stars" class="star">&#9733;</label>
+            <input type="radio" id="1-star" name="rating" value="1">
+            <label for="1-star" class="star">&#9733;</label>
+        </div>
+        <input class="bt" type="button" value="입력">
     </div>
 
     <script>
@@ -59,10 +66,12 @@
         let f3 = document.querySelector('.f3');
         let f4 = document.querySelector('.f4');
         let f5 = document.querySelector('.f5');
+        let f6 = document.querySelector('.f6');
 
         function infoPage() {
             fetchMovie();
-            fetchVideo();
+            // fetchVideo();
+            showComment();
             fetchComment();
         }
 
@@ -133,27 +142,72 @@
                     });
                 })
         }
-        function fetchComment() {
-            let url = `/CmInsertController`;
-            let data = {
-                id: test,
-                cont: test,
-                stars: test
-            }
-            let fchPara = {
-                headers: {
-                    "content-type":"application/json; charset=utf-8"
-                },
-                body:data,
-                method:"POST"
-            };
 
-            fecth(url, fchPara)
-            .then(res => {
-                console.log(res);
+        function showComment() {
+
+            let url = `commentList.do`;
+            let table = document.querySelector('#list_table')
+
+            fetch(url)
+                .then(res => res.json())
+                .then(res => {
+                    res.forEach(res => {
+                        console.log(res);
+
+                        let tr = document.createElement('tr');
+
+                        for (let element in res) {
+                            let td = document.createElement('td');
+                            td.innerHTML = res[element];
+                            tr.appendChild(td);
+                        }
+                        table.appendChild(tr);
+                    })
+                })
+                .catch()
+
+
+        }
+
+        function fetchComment() {
+            let url = `commentAdd.do`;
+
+            let bt = document.querySelector('.bt');
+            bt.addEventListener('click', e => {
+
+                let tr = document.querySelectorAll('tr');
+                tr.forEach(element => {
+                    element.remove();
+                })
+
+                let comment = document.getElementById('area').value;
+                let stars = document.querySelectorAll('.star-rating>input');
+                let val;
+
+                stars.forEach(element => {
+                    if (element.checked == true) {
+                        val = element.value;
+                    }
+                })
+
+                fetch(url, {
+                    method: 'post',
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `comment=${comment}&stars=${val}`
+                })
+                    .then(res => {
+                        document.getElementById('area').value = "";
+                        stars.forEach(element => {
+                            element.checked = false;
+                        })
+                        showComment();
+                    })
             })
         }
         window.addEventListener('onLoad', infoPage());
     </script>
 </body>
+
 </html>
