@@ -29,23 +29,6 @@ public class CmListControl implements Control {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-//		String json = "[";
-//
-//		for (MemberVO element : list) {
-//			json += "{";
-//			json += "\"id\":" + "\"" + element.getId() + "\",";
-//			json += "\"cmt\":" + "\"" + element.getCmCont() + "\",";
-//			json += "\"stars\":" + "\"&#11088;" + element.getCmStars() + "\",";
-//			json += "\"date\":" + "\"" + element.getCmDate().substring(2, 10) + "\"";
-////			json += "\"code\":" + "\"" + element.getCmCode() + "\"";
-//			json += "},";
-//		}
-//
-//		json = json.substring(0, json.length() - 1);
-//		json += "]";
-//
-//		System.out.println(json);
-
 		JSONArray ary = new JSONArray();
 
 		for (MemberVO element : list) {

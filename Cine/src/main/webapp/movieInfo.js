@@ -157,8 +157,6 @@ function showComment() {
                 del.innerHTML = '&#10060;';
                 tr.appendChild(del);
 
-                console.log(tr);
-
                 table.appendChild(tr);
             })
 
@@ -203,6 +201,18 @@ function fetchComment() {
     })
 
 
-
 }
+
+
+let current_page = 1;
+let tr_per_page = 5;
+let l = document.getElementById("cmtTable")
+console.log(l);
+console.log(l.rows.length);
+
+
+// function toNumPages() {
+//     return Math.ceil(obj.length / tr_per_page)
+// }
+
 window.addEventListener('onLoad', infoPage());

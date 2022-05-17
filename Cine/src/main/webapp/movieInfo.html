@@ -29,17 +29,12 @@
         <div class="youtube"></div>
     </div>
 
-    <table>
-        <tbody id="cmtTable"></tbody>
-    </table>
-
-    <!-- <a onclick="prevPage()" href='#' id="btn_prev">Prev</a>
-        <a onclick="nextPage()" href='#' id="btn_next">Next</a>
-        <span id="page"></span> -->
-
+    <table id="cmtTable"></table>
+    <a onclick="prevPage()" href='#' id="btn_prev">Prev</a>
+    <a onclick="nextPage()" href='#' id="btn_next">Next</a>
+    page: <span id="page"></span>
 
     <div class="f6">
-        <input type="text" name="" id="area" placeholder="이 영화 어떠셨나요?">
         <div class="star-rating">
             <input type="radio" id="5-stars" name="rating" value="5">
             <label for="5-stars" class="star">&#9733;</label>
@@ -52,6 +47,7 @@
             <input type="radio" id="1-star" name="rating" value="1">
             <label for="1-star" class="star">&#9733;</label>
         </div>
+        <input type="text" name="" id="area" placeholder="이 영화 어떠셨나요?">
         <input class="bt" type="button" value="입력">
     </div>
 

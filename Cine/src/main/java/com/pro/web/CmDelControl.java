@@ -18,6 +18,7 @@ public class CmDelControl implements Control {
 		String code = request.getParameter("code");
 		
 		CommentService service = new CommentService();
+		
 		service.delComment(code);
 			
 	}
