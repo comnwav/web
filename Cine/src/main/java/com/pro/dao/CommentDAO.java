@@ -34,7 +34,7 @@ public class CommentDAO extends DAO {
 			psmt.setInt(3, vo.getCmStars());
 			psmt.setString(4, vo.getMovieId());
 			int r = psmt.executeUpdate();
-			System.out.println(r + "건 수정");
+			System.out.println(r + "건 삭제");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,19 +43,22 @@ public class CommentDAO extends DAO {
 		}
 	}
 	
-//	public void delComment(MemberVO vo) {
-//		conn = getConnect();
-//		
-//		try {
-//			psmt = conn.prepareStatement(sql);
-//			
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			disConnect();
-//		}
-//	}
+	public void delComment(String code) {
+		conn = getConnect();
+		
+		String sql = "delete from info_cmt where cm_code = ?";
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, code);
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 삭제");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
 	
 	public List<MemberVO> listComment(String id) {
 		conn = getConnect();

@@ -15,4 +15,8 @@ public class CommentService {
 	public List<MemberVO> listComment(String id) {
 		return dao.listComment(id);
 	}
+	
+	public void delComment(String code) {
+		dao.delComment(code);
+	}
 }

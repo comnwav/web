@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.pro.service.CommentService;
 import com.pro.vo.MemberVO;
 
@@ -26,37 +29,41 @@ public class CmListControl implements Control {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 
-		String json = "[";
-
-		for (MemberVO element : list) {
-			json += "{";
-			json += "\"id\":" + "\"" + element.getId() + "\",";
-			json += "\"cmt\":" + "\"" + element.getCmCont() + "\",";
-			json += "\"stars\":" + "\"&#11088;" + element.getCmStars() + "\",";
-			json += "\"date\":" + "\"" + element.getCmDate().substring(2, 10) + "\"";
-//			json += "\"code\":" + "\"" + element.getCmCode() + "\"";
-			json += "},";
-		}
-
-		json = json.substring(0, json.length() - 1);
-		json += "]";
-
-		System.out.println(json);
-
-//		JSONArray ary = new JSONArray();
+//		String json = "[";
 //
 //		for (MemberVO element : list) {
-//			
-//			JSONObject jo = new JSONObject();
-//			jo.put("id", element.getId());
-//			jo.put("cmt", element.getCmCont());
-//			jo.put("stars", element.getCmStars());
-//			jo.put("date", element.getCmDate());
-//			
-//			ary.put(jo);
+//			json += "{";
+//			json += "\"id\":" + "\"" + element.getId() + "\",";
+//			json += "\"cmt\":" + "\"" + element.getCmCont() + "\",";
+//			json += "\"stars\":" + "\"&#11088;" + element.getCmStars() + "\",";
+//			json += "\"date\":" + "\"" + element.getCmDate().substring(2, 10) + "\"";
+////			json += "\"code\":" + "\"" + element.getCmCode() + "\"";
+//			json += "},";
 //		}
+//
+//		json = json.substring(0, json.length() - 1);
+//		json += "]";
+//
+//		System.out.println(json);
 
-		out.print(json);
+		JSONArray ary = new JSONArray();
+
+		for (MemberVO element : list) {
+			
+			JSONObject jo = new JSONObject();
+			jo.put("id", element.getId());
+			jo.put("cmt", element.getCmCont());
+			jo.put("stars", element.getCmStars());
+			jo.put("date", element.getCmDate().substring(2, 10));
+			jo.put("movie_id", element.getMovieId());
+			jo.put("code", element.getCmCode());
+			
+			ary.put(jo);
+		}
+		
+		System.out.println(ary);
+
+		out.print(ary);
 		out.close();
 
 	}

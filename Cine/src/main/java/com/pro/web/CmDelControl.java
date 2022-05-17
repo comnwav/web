@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.pro.service.CommentService;
+
 public class CmDelControl implements Control {
 	
 	@Override
@@ -13,9 +15,11 @@ public class CmDelControl implements Control {
 
 		request.setCharacterEncoding("utf-8");
 		
-		String id = request.getParameter("");
-		String code = request.getParameter("");
+		String code = request.getParameter("code");
 		
+		CommentService service = new CommentService();
+		service.delComment(code);
+			
 	}
 
 }

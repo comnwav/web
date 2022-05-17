@@ -30,6 +30,7 @@ public class CmController extends HttpServlet {
 
 		list.put("/commentAdd.do", new CmAddControl());
 		list.put("/commentList.do", new CmListControl());
+		list.put("/commentDel.do", new CmDelControl());
 
 	}
 

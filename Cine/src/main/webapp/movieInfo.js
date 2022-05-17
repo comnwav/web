@@ -3,6 +3,7 @@ let key = "6446bae76aaffa9af6d4c00b2299f016";
 let srcPara = new URL(location.href).searchParams;
 let name = srcPara.get('title');
 let movieId = srcPara.get('movieId');
+let sessionId = 'testId';
 
 let f1 = document.querySelector('.f1');
 let f2 = document.querySelector('.f2');
@@ -14,13 +15,12 @@ let f6 = document.querySelector('.f6');
 function infoPage() {
     fetchMovie();
     // fetchVideo();
-    showComment();
     fetchComment();
+    showComment();
 }
 
 function fetchMovie() {
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${name}&language=ko-KR`;
-    // let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=가타카&language=ko-KR`;
     let base_url = "https://image.tmdb.org/t/p/w500";
 
     fetch(url)
@@ -66,7 +66,6 @@ function fetchMovie() {
 
 function fetchVideo() {
     let url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${key}&language=en-EN`;
-    // let url = `https://api.themoviedb.org/3/movie/782/videos?api_key=${key}&language=en-EN`;
     let youtube = document.querySelector('.youtube');
 
     fetch(url)
@@ -84,40 +83,85 @@ function fetchVideo() {
         })
 }
 
+function delComment(val) {
+
+    let tr = document.querySelectorAll('tr');
+    tr.forEach(element => {
+        element.remove();
+    })
+
+    let url = `commentDel.do`;
+    fetch(url, {
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `code=${val}`
+    })
+        .then(res => {
+            showComment();
+        })
+}
+
 function showComment() {
 
     let url = `commentList.do`;
-    let table = document.querySelector('#list_table')
+    let table = document.querySelector('#cmtTable');
+    console.log(table);
 
     fetch(url, {
-            method: 'post',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `movieId=${movieId}`
-        })
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `movieId=${movieId}`
+    })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
-
-            res.forEach(res => {
-
-                console.log(res);
+            res.forEach(element => {
 
                 let tr = document.createElement('tr');
 
-                for (let element in res) {
-                    let td = document.createElement('td');
-                    td.innerHTML = res[element];
-                    td.setAttribute("align", "center");
-                    tr.appendChild(td);
-                }
-                let td = document.createElement('td');
-                td.innerHTML = '&#10060;';
-                tr.appendChild(td);
-                table.appendChild(tr);
+                let id = document.createElement('td');
+                id.innerHTML = element.id;
+                id.setAttribute("width", "100");
+                tr.appendChild(id);
 
+                let cmt = document.createElement('td');
+                cmt.innerHTML = element.cmt;
+                cmt.setAttribute("width", "300");
+                tr.appendChild(cmt);
+
+                let stars = document.createElement('td');
+                stars.innerHTML = `&#11088;${element.stars}`;
+                stars.setAttribute("width", "10");
+                stars.setAttribute("align", "center")
+                tr.appendChild(stars);
+
+                let date = document.createElement('td');
+                date.innerHTML = element.date;
+                date.setAttribute("width", "100");
+                date.setAttribute("align", "center")
+                tr.appendChild(date);
+
+                let del = document.createElement('td');
+                del.addEventListener('click', e => {
+                    if (sessionId == element.id) {
+                        delComment(element.code);
+                    } else {
+                        alert("본인이 작성한 게시물만 삭제할 수 있습니다.");
+                    }
+                })
+                del.setAttribute("width", "10");
+                del.setAttribute("align", "center")
+                del.innerHTML = '&#10060;';
+                tr.appendChild(del);
+
+                console.log(tr);
+
+                table.appendChild(tr);
             })
+
         })
 }
 
@@ -143,12 +187,12 @@ function fetchComment() {
         })
 
         fetch(url, {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `comment=${comment}&stars=${val}&movieId=${movieId}`
-            })
+            method: 'post',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `comment=${comment}&stars=${val}&movieId=${movieId}`
+        })
             .then(res => {
                 document.getElementById('area').value = "";
                 stars.forEach(element => {
@@ -158,10 +202,7 @@ function fetchComment() {
             })
     })
 
-    function delComment() {
-        let url = `commentDel.do`;
 
-    }
 
 }
 window.addEventListener('onLoad', infoPage());
