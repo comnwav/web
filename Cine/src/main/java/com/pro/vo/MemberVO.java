@@ -7,6 +7,15 @@ public class MemberVO {
 	String cmCont;
 	int cmStars;
 	String cmDate;
+	String movieId;
+	
+	public String getMovieId() {
+		return movieId;
+	}
+
+	public void setMovieId(String movieId) {
+		this.movieId = movieId;
+	}
 
 	public String getId() {
 		return id;

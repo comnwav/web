@@ -16,12 +16,14 @@ public class CommentDAO extends DAO {
 				"    cm_code,\n"+
 				"    cm_cont,\n"+
 				"    cm_date,\n"+
-				"    cm_stars\n"+
+				"    cm_stars,\n"+
+				"    movie_id\n"+
 				") VALUES (\n"+
 				"    ?,\n"+
 				"    'cm'||cm_code_seq.nextval,\n"+
 				"    ?,\n"+
 				"    sysdate,\n"+
+				"    ?,\n"+
 				"    ?\n"+
 				")";
 		
@@ -30,6 +32,7 @@ public class CommentDAO extends DAO {
 			psmt.setString(1, vo.getId());
 			psmt.setString(2, vo.getCmCont());
 			psmt.setInt(3, vo.getCmStars());
+			psmt.setString(4, vo.getMovieId());
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 수정");
 			
@@ -54,14 +57,16 @@ public class CommentDAO extends DAO {
 //		}
 //	}
 	
-	public List<MemberVO> listComment() {
+	public List<MemberVO> listComment(String id) {
 		conn = getConnect();
-		String sql = "select * from info_cmt order by cm_date desc";
+		String sql = "select * from info_cmt where movie_id = ? order by cm_date desc";
 		
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		
-		try {
+		
+		try {			
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				MemberVO vo = new MemberVO();
@@ -69,6 +74,7 @@ public class CommentDAO extends DAO {
 				vo.setCmCont(rs.getString("cm_cont"));
 				vo.setCmDate(rs.getString("cm_date"));
 				vo.setCmStars(rs.getInt("cm_stars"));
+				vo.setCmCode(rs.getString("cm_code"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -78,4 +84,5 @@ public class CommentDAO extends DAO {
 		}
 		return list;
 	}
+
 }

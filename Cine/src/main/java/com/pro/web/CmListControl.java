@@ -8,9 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.pro.service.CommentService;
 import com.pro.vo.MemberVO;
 
@@ -20,30 +17,46 @@ public class CmListControl implements Control {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		
-		CommentService service = new CommentService();
-		List<MemberVO> list = service.listComment();
 
-		
+		String id = request.getParameter("movieId");
+
+		CommentService service = new CommentService();
+		List<MemberVO> list = service.listComment(id);
+
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		
-		JSONArray ary = new JSONArray();
-		
+
+		String json = "[";
+
 		for (MemberVO element : list) {
-			
-			JSONObject jo = new JSONObject();
-			jo.put("id", element.getId());
-			jo.put("cmt", element.getCmCont());
-			jo.put("stars", element.getCmStars());
-			jo.put("date", element.getCmDate());
-			
-			System.out.println(jo);
-			ary.put(jo);
-			
+			json += "{";
+			json += "\"id\":" + "\"" + element.getId() + "\",";
+			json += "\"cmt\":" + "\"" + element.getCmCont() + "\",";
+			json += "\"stars\":" + "\"&#11088;" + element.getCmStars() + "\",";
+			json += "\"date\":" + "\"" + element.getCmDate().substring(2, 10) + "\"";
+//			json += "\"code\":" + "\"" + element.getCmCode() + "\"";
+			json += "},";
 		}
 
-		out.println(ary);
+		json = json.substring(0, json.length() - 1);
+		json += "]";
+
+		System.out.println(json);
+
+//		JSONArray ary = new JSONArray();
+//
+//		for (MemberVO element : list) {
+//			
+//			JSONObject jo = new JSONObject();
+//			jo.put("id", element.getId());
+//			jo.put("cmt", element.getCmCont());
+//			jo.put("stars", element.getCmStars());
+//			jo.put("date", element.getCmDate());
+//			
+//			ary.put(jo);
+//		}
+
+		out.print(json);
 		out.close();
 
 	}

@@ -18,6 +18,7 @@ public class CmAddControl implements Control {
 
 		String comment = request.getParameter("comment");
 		String stars = request.getParameter("stars");
+		String id = request.getParameter("movieId");
 
 		System.out.println(stars);
 
@@ -25,6 +26,7 @@ public class CmAddControl implements Control {
 		vo.setId("test125");
 		vo.setCmCont(comment);
 		vo.setCmStars(Integer.parseInt(stars));
+		vo.setMovieId(id);
 
 		CommentService service = new CommentService();
 		service.addComment(vo);

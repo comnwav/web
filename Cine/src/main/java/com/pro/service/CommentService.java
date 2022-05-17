@@ -12,7 +12,7 @@ public class CommentService {
 		dao.addComment(member);
 	}
 	
-	public List<MemberVO> listComment() {
-		return dao.listComment();
+	public List<MemberVO> listComment(String id) {
+		return dao.listComment(id);
 	}
 }
