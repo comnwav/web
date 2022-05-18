@@ -1,6 +1,13 @@
-let object = {
-    x: 1,
-    y: 2
-}
+let object = [{
+        x: 1,
+        y: 2
+    },
+    {
+        x: 3,
+        y: 4
+    }
+]
 
-console.log(object.x);
+for (let element of object) {
+    console.log(element.x);
+}

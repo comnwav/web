@@ -40,8 +40,6 @@ function fetchMovie() {
             imgTag.setAttribute('width', '300');
             imgTag.src = poster;
 
-            console.log(imgTag);
-
             f1.firstElementChild.appendChild(imgTag);
 
             // f1-2 reserve button
@@ -92,34 +90,31 @@ function delComment(val) {
 
     let url = `commentDel.do`;
     fetch(url, {
-        method: 'post',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `code=${val}`
-    })
+            method: 'post',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `code=${val}`
+        })
         .then(res => {
             showComment();
         })
 }
 
 function showComment() {
-
     let url = `commentList.do`;
-    let table = document.querySelector('#cmtTable');
-    console.log(table);
 
     fetch(url, {
-        method: 'post',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `movieId=${movieId}`
-    })
+            method: 'post',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `movieId=${movieId}`
+        })
         .then(res => res.json())
         .then(res => {
             res.forEach(element => {
-
+                let table = document.querySelector('#cmtTable');
                 let tr = document.createElement('tr');
 
                 let id = document.createElement('td');
@@ -159,7 +154,6 @@ function showComment() {
 
                 table.appendChild(tr);
             })
-
         })
 }
 
@@ -167,9 +161,10 @@ function fetchComment() {
     let url = `commentAdd.do`;
 
     let bt = document.querySelector('.bt');
-    bt.addEventListener('click', e => {
 
+    bt.addEventListener('click', e => {
         let tr = document.querySelectorAll('tr');
+
         tr.forEach(element => {
             element.remove();
         })
@@ -185,12 +180,12 @@ function fetchComment() {
         })
 
         fetch(url, {
-            method: 'post',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `comment=${comment}&stars=${val}&movieId=${movieId}`
-        })
+                method: 'post',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `comment=${comment}&stars=${val}&movieId=${movieId}`
+            })
             .then(res => {
                 document.getElementById('area').value = "";
                 stars.forEach(element => {
@@ -199,20 +194,6 @@ function fetchComment() {
                 showComment();
             })
     })
-
-
 }
-
-
-let current_page = 1;
-let tr_per_page = 5;
-let l = document.getElementById("cmtTable")
-console.log(l);
-console.log(l.rows.length);
-
-
-// function toNumPages() {
-//     return Math.ceil(obj.length / tr_per_page)
-// }
 
 window.addEventListener('onLoad', infoPage());
