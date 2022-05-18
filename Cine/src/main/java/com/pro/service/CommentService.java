@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.pro.dao.CommentDAO;
 import com.pro.vo.MemberVO;
+import com.pro.vo.PageVO;
 
 public class CommentService {
 	CommentDAO dao = new CommentDAO(); // db CRUD
@@ -12,11 +13,15 @@ public class CommentService {
 		dao.addComment(member);
 	}
 	
-	public List<MemberVO> listComment(String id) {
-		return dao.listComment(id);
+	public List<MemberVO> listComment(PageVO pv) {
+		return dao.listComment(pv);
 	}
 	
 	public void delComment(String code) {
 		dao.delComment(code);
+	}
+	
+	public int getRownum(int movieId) {
+		return dao.getRownum(movieId);
 	}
 }

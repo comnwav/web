@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.pro.service.CommentService;
 import com.pro.vo.MemberVO;
+import com.pro.vo.PageVO;
 
 public class CmListControl implements Control {
 
@@ -20,13 +21,16 @@ public class CmListControl implements Control {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-
-		String id = request.getParameter("movieId");
-
-		CommentService service = new CommentService();
-		List<MemberVO> list = service.listComment(id);
-
 		response.setContentType("text/html;charset=utf-8");
+		
+		PageVO pv = new PageVO();
+		
+		pv.setPage(Integer.parseInt(request.getParameter("page")));
+		pv.setMovieId(Integer.parseInt(request.getParameter("movieId")));
+		
+		CommentService service = new CommentService();
+		List<MemberVO> list = service.listComment(pv);
+
 		PrintWriter out = response.getWriter();
 
 		JSONArray ary = new JSONArray();
@@ -48,7 +52,5 @@ public class CmListControl implements Control {
 
 		out.print(ary);
 		out.close();
-
 	}
-
 }

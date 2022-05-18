@@ -29,8 +29,9 @@ public class CmController extends HttpServlet {
 		list = new HashMap<String, Control>();
 
 		list.put("/commentAdd.do", new CmAddControl());
-		list.put("/commentList.do", new CmListControl());
+		list.put("/commnetList.do", new CmListControl());
 		list.put("/commentDel.do", new CmDelControl());
+		list.put("/commnetPage.do", new CmPageControl());
 	}
 
 	@Override

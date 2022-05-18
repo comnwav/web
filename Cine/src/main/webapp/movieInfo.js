@@ -15,8 +15,10 @@ let f6 = document.querySelector('.f6');
 function infoPage() {
     fetchMovie();
     // fetchVideo();
+    makePage()
     fetchComment();
-    showComment();
+    makeNav(1);
+    showComment(1);
 }
 
 function fetchMovie() {
@@ -81,36 +83,93 @@ function fetchVideo() {
         })
 }
 
-function delComment(val) {
+function makePage() {
+    let url = `commnetPage.do`;
 
-    let tr = document.querySelectorAll('tr');
-    tr.forEach(element => {
-        element.remove();
-    })
-
-    let url = `commentDel.do`;
     fetch(url, {
-            method: 'post',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `code=${val}`
-        })
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `movieId=${movieId}`
+    })
+        .then(res => res.json())
         .then(res => {
-            showComment();
+            function totNumPages() {
+                return Math.ceil(res.count / 5);
+            }
+
+            let page = document.getElementById('page');
+            for (let i = 1; i <= totNumPages(); i++) {
+                let a = document.createElement('a');
+                a.innerHTML = `${i}`;
+                a.href = '#';
+                a.addEventListener('click', e => {
+                    showComment(i);
+                    makeNav(i);
+                })
+                page.appendChild(a);
+            }
+
+            let a = document.getElementById('page');
+            console.log(a);
         })
 }
 
-function showComment() {
-    let url = `commentList.do`;
+function makeNav(i) {
+    let url = `commnetPage.do`;
 
     fetch(url, {
-            method: 'post',
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `movieId=${movieId}`
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `movieId=${movieId}`
+    })
+        .then(res => res.json())
+        .then(res => {
+            function totNumPages() {
+                return Math.ceil(res.count / 5);
+            }
+
+            let current_page = i;
+
+            let btn_prev = document.getElementById("btn_prev");
+            btn_prev.addEventListener('click', prevPage);
+            let btn_next = document.getElementById("btn_next");
+            btn_next.addEventListener('click', nextPage);
+
+            function prevPage() {
+                if (current_page > 1) {
+                    current_page--;
+                    change(current_page);
+                }
+            }
+
+            function nextPage() {
+                if (current_page < totNumPages()) {
+                    current_page++;
+                    change(current_page);
+                }
+            }
+
+            function change(page) {
+                showComment(page);
+            }
         })
+
+}
+
+function showComment(page) {
+    let url = `commnetList.do`;
+
+    fetch(url, {
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `movieId=${movieId}&page=${page}`
+    })
         .then(res => res.json())
         .then(res => {
             res.forEach(element => {
@@ -157,18 +216,22 @@ function showComment() {
         })
 }
 
+function delComment(val) {
+    let url = `commentDel.do`;
+    fetch(url, {
+        method: 'post',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `code=${val}`
+    })
+}
+
 function fetchComment() {
     let url = `commentAdd.do`;
 
     let bt = document.querySelector('.bt');
-
     bt.addEventListener('click', e => {
-        let tr = document.querySelectorAll('tr');
-
-        tr.forEach(element => {
-            element.remove();
-        })
-
         let comment = document.getElementById('area').value;
         let stars = document.querySelectorAll('.star-rating>input');
         let val;
@@ -180,18 +243,17 @@ function fetchComment() {
         })
 
         fetch(url, {
-                method: 'post',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: `comment=${comment}&stars=${val}&movieId=${movieId}`
-            })
+            method: 'post',
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `comment=${comment}&stars=${val}&movieId=${movieId}`
+        })
             .then(res => {
                 document.getElementById('area').value = "";
                 stars.forEach(element => {
                     element.checked = false;
                 })
-                showComment();
             })
     })
 }
