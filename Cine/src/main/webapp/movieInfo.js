@@ -12,13 +12,15 @@ let f4 = document.querySelector('.f4');
 let f5 = document.querySelector('.f5');
 let f6 = document.querySelector('.f6');
 
+let current_page = 1;
+
 function infoPage() {
     fetchMovie();
     // fetchVideo();
     makePage()
     fetchComment();
-    makeNav(1);
-    showComment(1);
+    makeNav(current_page);
+    showComment(current_page);
 }
 
 function fetchMovie() {
@@ -106,13 +108,9 @@ function makePage() {
                 a.href = '#';
                 a.addEventListener('click', e => {
                     showComment(i);
-                    makeNav(i);
                 })
                 page.appendChild(a);
             }
-
-            let a = document.getElementById('page');
-            console.log(a);
         })
 }
 
@@ -132,7 +130,7 @@ function makeNav(i) {
                 return Math.ceil(res.count / 5);
             }
 
-            let current_page = i;
+            current_page = i;
 
             let btn_prev = document.getElementById("btn_prev");
             btn_prev.addEventListener('click', prevPage);
@@ -154,6 +152,8 @@ function makeNav(i) {
             }
 
             function change(page) {
+                if (page < 1) page = 1;
+                if (page > totNumPages()) page = totNumPages();
                 showComment(page);
             }
         })
@@ -162,6 +162,9 @@ function makeNav(i) {
 
 function showComment(page) {
     let url = `commnetList.do`;
+
+    let tr = document.getElementById('cmtTable');
+    tr.innerHTML = "";
 
     fetch(url, {
         method: 'post',
@@ -172,6 +175,7 @@ function showComment(page) {
     })
         .then(res => res.json())
         .then(res => {
+            console.log(res);
             res.forEach(element => {
                 let table = document.querySelector('#cmtTable');
                 let tr = document.createElement('tr');
